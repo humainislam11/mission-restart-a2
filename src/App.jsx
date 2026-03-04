@@ -21,8 +21,9 @@ function App() {
      
      <div className='bg-gray-100'>
           <Navbar></Navbar>
-          <Suspense> <Tickets ticketsPromise={ticketsPromise}></Tickets></Suspense>
-         
+          <Suspense fallback={<span className="loading loading-spinner loading-xl"></span>}> <Tickets ticketsPromise={ticketsPromise}></Tickets></Suspense>
+          
+          
      </div>
     </>
   )
