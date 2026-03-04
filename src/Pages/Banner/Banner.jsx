@@ -1,5 +1,5 @@
 
-const Banner = () => {
+const Banner = ({inProgress,resolvedTasks}) => {
     return (
        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 p-10 bg-gray-100 mt-10">
       
@@ -14,7 +14,7 @@ const Banner = () => {
         
         <div className="relative z-10"> 
           <h3 className="text-xl font-medium mb-2">In-Progress</h3>
-          <p className="text-6xl font-bold">0</p>
+          <p className="text-6xl font-bold">{inProgress}</p>
         </div>
       </div>
 
@@ -30,7 +30,7 @@ const Banner = () => {
         
         <div className="relative z-10 flex flex-col items-center">
           <h3 className="text-xl font-medium mb-2">Resolved</h3>
-          <p className="text-6xl font-bold mb-4">0</p>
+          <p className="text-6xl font-bold mb-4">{resolvedTasks}</p>
         </div>
       </div>
 
