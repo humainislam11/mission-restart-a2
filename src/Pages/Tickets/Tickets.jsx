@@ -7,7 +7,7 @@ const Tickets = ({ticketsPromise}) => {
      const ticketsData = use(ticketsPromise)
      console.log(ticketsData);
   const [tickets, setTickets] = useState([]);
-  const [taskStatus, setTaskStatus] = useState([]);
+  const [inProgress, setInProgress] = useState([]);
   const [resolvedTasks, setResolvedTasks] = useState([]);
 
  
@@ -15,9 +15,9 @@ const Tickets = ({ticketsPromise}) => {
 
   // টিকেট কার্ডে ক্লিক করলে Task Status-এ যোগ করা
   const addToTaskStatus = (ticket) => {
-    const isExist = taskStatus.find(item => item.id === ticket.id);
+    const isExist = inProgress.find(item => item.id === ticket.id);
     if (!isExist) {
-      setTaskStatus([...taskStatus, ticket]);
+      setInProgress([...inProgress, ticket]);
       toast.success("Task added to In-Progress!");
     } else {
       toast.warning("Task already in progress!");
@@ -27,7 +27,7 @@ const Tickets = ({ticketsPromise}) => {
   // ✅ Complete বাটন লজিক (সব রিকোয়ারমেন্ট মেনে)
   const handleComplete = (task) => {
     // ১. Task Status থেকে সরানো
-    setTaskStatus(taskStatus.filter(item => item.id !== task.id));
+    setInProgress(inProgress.filter(item => item.id !== task.id));
     // ২. Resolved লিস্টে যোগ করা
     setResolvedTasks([...resolvedTasks, task]);
     // ৩. মেইন টিকেট লিস্ট থেকে চিরতরে সরানো
@@ -46,7 +46,7 @@ const Tickets = ({ticketsPromise}) => {
            {/* সাদা আঁকাবাঁকা ডাগের মতো প্যাটার্ন (CSS Overlay) */}
           <div className="absolute inset-0 opacity-20 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
           <h3 className="text-xl font-medium mb-2 relative z-10">In-Progress</h3>
-          <p className="text-6xl font-bold relative z-10">{taskStatus.length}</p>
+          <p className="text-6xl font-bold relative z-10">{inProgress.length}</p>
         </div>
 
         <div className="relative overflow-hidden bg-gradient-to-r from-[#4ADE80] to-[#0D9488] rounded-xl p-10 text-white text-center shadow-lg">
@@ -65,7 +65,7 @@ const Tickets = ({ticketsPromise}) => {
             Customer <span className="text-blue-600">Tickets</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {tickets.map(ticket => (
+            {ticketsData.map(ticket => (
               <div 
                 key={ticket.id} 
                 className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-indigo-300 transition-all cursor-pointer group"
@@ -98,8 +98,8 @@ const Tickets = ({ticketsPromise}) => {
           <section>
             <h2 className="text-xl font-bold mb-4 text-gray-700">Task Status</h2>
             <div className="space-y-4">
-              {taskStatus.length === 0 && <p className="text-gray-400 italic text-sm">No tasks selected yet.</p>}
-              {taskStatus.map(task => (
+              {inProgress.length === 0 && <p className="text-gray-400 italic text-sm">No tasks selected yet.</p>}
+              {inProgress.map(task => (
                 <div key={task.id} className="bg-white p-5 rounded-lg shadow-sm border-l-4 border-indigo-500 animate-fadeIn">
                   <p className="font-semibold text-gray-800 mb-4">{task.title}</p>
                   <button 
