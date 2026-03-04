@@ -1,16 +1,50 @@
-# React + Vite
+1 . What is JSX, and why is it used?
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+JSX-এর পূর্ণরূপ হলো JavaScript XML। এটি জাভাস্ক্রিপ্টের একটি সিনট্যাক্স এক্সটেনশন যা আমাদের জাভাস্ক্রিপ্ট ফাইলের ভেতরেই HTML-এর মতো কোড লিখতে সাহায্য করে।
 
-Currently, two official plugins are available:
+সাধারণ জাভাস্ক্রিপ্ট দিয়ে UI তৈরি করা অনেক কঠিন এবং জটিল (React.createElement ব্যবহার করতে হয়)। JSX ব্যবহার করলে কোড দেখতে অনেক পরিষ্কার লাগে এবং সহজে বোঝা যায় কোন অংশটি UI-তে কেমন দেখাবে।
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+2. What is the difference between State and Props?
+  রিয়্যাক্টে ডেটা ম্যানেজ করার জন্য এই দুটি জিনিসই খুব গুরুত্বপূর্ণ |
 
-## React Compiler
+  Props : 
+   এটি প্যারেন্ট কম্পোনেন্ট থেকে চাইল্ড কম্পোনেন্টে পাঠানো হয়।
+   প্রপস পরিবর্তন করা যায় না (Read-only)।
+   অন্য কম্পোনেন্টে তথ্য পাঠানোর জন্য ব্যবহৃত হয়।
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+  State : 
+    এটি একটি কম্পোনেন্টের নিজস্ব অভ্যন্তরীণ ডেটা।
+    স্টেট পরিবর্তন করা যায় (Mutable)।
+    ইউজারের অ্যাকশন বা ডেটা পরিবর্তনের সাথে UI আপডেট করতে ব্যবহৃত হয়।
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+3. What is the useState hook, and how does it work?
+
+  useState : 
+   এটি রিয়্যাক্টের একটি বিল্ট-ইন ফাংশন (হুক) যা ফাংশনাল কম্পোনেন্টে ডেটা বা স্টেট ধরে রাখতে সাহায্য করে।
+    
+
+    যখনই useState ব্যবহার করা হয়, এটি একটি অ্যারে রিটার্ন করে যার দুটি অংশ থাকে:
+
+    বর্তমান ভ্যালু: যেটি আমরা UI-তে দেখাই।
+
+    সেট ফাংশন: এই ফাংশনটি কল করে আমরা ওই ভ্যালু পরিবর্তন করতে পারি। যখনই আমরা সেট ফাংশন দিয়ে ডেটা পরিবর্তন করি, রিয়্যাক্ট নিজে থেকে কম্পোনেন্টটিকে পুনরায় রেন্ডার করে UI আপডেট করে দেয়।
+
+
+4. How can you share state between components in React?
+    
+    Lifting State Up: যদি দুটি কম্পোনেন্টের মধ্যে একই ডেটা লাগে, তবে সেই স্টেটটিকে তাদের কমন প্যারেন্ট (Parent) কম্পোনেন্টে নিয়ে যাওয়া হয় এবং প্রপস হিসেবে শেয়ার করা হয়।
+
+    Context API: যদি অনেক গভীরে থাকা কোনো কম্পোনেন্টে ডেটা পাঠাতে হয়, তবে প্রপস ড্রিলিং এড়াতে Context API ব্যবহার করা হয়।
+
+    State Management Libraries: বড় প্রজেক্টের ক্ষেত্রে Redux বা Zustand-এর মতো লাইব্রেরি ব্যবহার করে গ্লোবাল স্টেট শেয়ার করা হয়।
+
+
+
+5. How is event handling done in React?
+
+     CamelCase ব্যবহার: HTML-এ onclick লিখলেও রিয়্যাক্টে লিখতে হয় onClick (অর্থাৎ উটের পিঠের মতো বড় হাতের অক্ষর)।
+
+     ফাংশন পাস করা: ইভেন্টের ভেতর স্ট্রিং না দিয়ে সরাসরি ফাংশনের নাম বা অ্যারো ফাংশন পাস করতে হয়। যেমন: onClick={handleComplete}।
+
+     Default Behavior বন্ধ করা: কোনো ফর্ম সাবমিট করার পর পেজ রিফ্রেশ বন্ধ করতে আমরা ইভেন্ট হ্যান্ডলারে e.preventDefault() ব্যবহার করি।
